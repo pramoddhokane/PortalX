@@ -22,7 +22,7 @@ namespace PortalX_DCRM
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-            User getUserInfo = AskCRM.FindUser(context.UserName, context.Password);
+            User getUserInfo = AskCRM.findUser(context.UserName, context.Password);
             if (getUserInfo.isValid)
             {
 

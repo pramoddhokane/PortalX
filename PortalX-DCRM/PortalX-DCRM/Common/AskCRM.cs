@@ -7,15 +7,19 @@ using Microsoft.Xrm.Client;
 using Microsoft.Xrm.Client.Services;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using System.Net.Http;
 
 namespace PortalX_DCRM
 {
     public class AskCRM
     {
+        #region Class Level Members
         private static OrganizationService _orgService;
         private static CrmConnection _connection;
+        #endregion
 
-        public static User FindUser(string Username, string Password)
+        #region UserModule
+        public static User findUser(string Username, string Password)
         {
             _connection = CrmConnection.Parse(Common.getCrmConnection());
 
@@ -29,7 +33,7 @@ namespace PortalX_DCRM
                     query.Criteria = new FilterExpression();
                     query.Criteria.AddCondition("portalx_username", ConditionOperator.Equal, Username);
                     query.Criteria.AddCondition("portalx_password", ConditionOperator.Equal, Password);
-                    
+
 
                     EntityCollection UserRecord = _orgService.RetrieveMultiple(query);
 
@@ -62,5 +66,16 @@ namespace PortalX_DCRM
                 return null;
             }
         }
+
+        public static Boolean updateUser(User updateUser)
+        {
+            return true;
+        }
+
+        public static Boolean createUser(User createUser)
+        {
+            return false;
+        }
+        #endregion
     }
 }
