@@ -66,6 +66,39 @@ namespace PortalX_DCRM
                 return null;
             }
         }
+        public static Boolean findUser(string Username)
+        {
+            _connection = CrmConnection.Parse(Common.getCrmConnection());
+
+            try
+            {
+                using (_orgService = new OrganizationService(_connection))
+                {
+
+                    QueryExpression query = new QueryExpression("contact");
+                    query.ColumnSet.AddColumns("contactid", "portalx_username");
+                    query.Criteria = new FilterExpression();
+                    query.Criteria.AddCondition("portalx_username", ConditionOperator.Equal, Username);
+
+                    EntityCollection UserRecord = _orgService.RetrieveMultiple(query);
+
+                    if (UserRecord.Entities.Count > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         public static Boolean updateUser(User updateUser)
         {
@@ -74,7 +107,17 @@ namespace PortalX_DCRM
 
         public static Boolean createUser(User createUser)
         {
-            return false;
+            if (findUser(createUser.Username))
+            {
+                return false;
+            }
+            else
+            { 
+            //TODO 
+            //Code for create user
+                return true;
+            }
+
         }
         #endregion
     }
