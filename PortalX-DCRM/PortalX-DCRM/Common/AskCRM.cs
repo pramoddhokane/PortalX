@@ -105,17 +105,38 @@ namespace PortalX_DCRM
             return true;
         }
 
-        public static Boolean createUser(User createUser)
+        public static User createUser(User createUser)
         {
             if (findUser(createUser.Username))
             {
-                return false;
+                return createUser;
             }
             else
-            { 
-            //TODO 
-            //Code for create user
-                return true;
+            {
+                try
+                {
+                    using (_orgService = new OrganizationService(_connection))
+                    {
+                        Entity _contact = new Entity("contact");
+
+                        _contact["fullname"] = createUser.FullName;
+                        _contact["portalx_username"] = createUser.Username;
+                        _contact["portalx_password"] = createUser.Password;
+                        _contact["emailaddress1"] = createUser.Email;
+                        _contact["portalx_isvalid"] = createUser.isValid;
+                        _contact["mobilephone"] = createUser.MobilePhone;
+                       // _contact["BussinessPhone"] = createUser.BussinessPhone;
+
+                        
+                        createUser.Id = _orgService.Create(_contact);
+                        return createUser;
+                    }
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
 
         }

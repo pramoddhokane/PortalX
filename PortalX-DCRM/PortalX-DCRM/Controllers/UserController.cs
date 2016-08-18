@@ -23,7 +23,7 @@ namespace PortalX_DCRM.Controllers
             HttpRequestMessage request = new HttpRequestMessage();
             request.SetConfiguration(new HttpConfiguration());
 
-            if (AskCRM.createUser(user))
+            if (AskCRM.createUser(user).Id != null)
             {
                 return request.CreateResponse(HttpStatusCode.OK, user);
             }

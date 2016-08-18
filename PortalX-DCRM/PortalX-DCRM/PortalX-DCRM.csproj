@@ -356,7 +356,9 @@
     <Content Include="assets\global\plugins\font-awesome\fonts\FontAwesome.otf" />
     <Content Include="assets\global\plugins\jquery.min.map" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
